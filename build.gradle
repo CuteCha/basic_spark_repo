@@ -1,0 +1,141 @@
+group 'com.ucas.cxq'
+version '1.0'
+
+
+apply plugin: 'scala'
+apply plugin: 'java'
+
+apply from: "./dependencies.gradle"
+apply plugin: "idea"
+
+sourceCompatibility = 1.7
+
+defaultTasks 'build'
+
+buildscript {
+    repositories {
+        mavenCentral()
+        mavenLocal()
+        jcenter()
+    }
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+    jcenter()
+}
+
+configurations {
+    provided {
+        dependencies.all { dep ->
+            configurations.default.exclude group: dep.group, module: dep.name
+        }
+    }
+    //provided.extendsFrom compile
+}
+
+task copyDependencies(type: Copy) {
+    from configurations.default
+    into 'build/deps'
+}
+sourceSets {
+    main {
+        compileClasspath += configurations.provided
+        runtimeClasspath += configurations.provided
+    }
+    test {
+        compileClasspath += configurations.provided
+        runtimeClasspath += configurations.provided
+    }
+}
+dependencies {
+    provided(libs.scala)
+    provided(libs.scalaRef)
+    compile(libs.spark)
+    //provided(libs.spark)
+    //compile(libs.sparkStreaming)
+    provided(libs.sparkStreaming)
+    compile(libs.lucene_core)
+    compile(libs.lucene_queryparser)
+    compile(libs.lucene_analyzers_common)
+//    compile(libs.json_lib)
+
+    compile(libs.redisClient)
+    compile(libs.scopt)
+    compile(libs.protobuf)
+    compile(libs.httpClient)
+    compile(libs.jodaTime)
+    compile(libs.jodaConvert)
+    compile(libs.slf4jLog4j)
+    compile(libs.log4j)
+    compile(libs.gson)
+    compile(libs.sparkStreamingKafka)
+    compile(libs.kafka)
+    compile(libs.typesafeConfig)
+    compile(libs.json4sJackson)  {
+        exclude group: 'org.scala-lang', module: 'scala-compiler'
+        exclude group: 'org.scala-lang', module: 'scala-reflect'
+        exclude group: 'org.scala-lang', module: 'scala-library'
+    }
+    testCompile(libs.scalaTest)
+}
+
+idea {
+    module {
+        jdkName = JavaVersion.VERSION_1_8
+        name = "spark_project"
+        excludeDirs = [file(".gradle")]
+        excludeDirs += file("$buildDir/classes")
+        excludeDirs += file("$buildDir/bundles")
+        excludeDirs += file("$buildDir/packages")
+        excludeDirs += file("$buildDir/dependency-cache")
+        excludeDirs += file("$buildDir/libs")
+        excludeDirs += file("$buildDir/reports")
+        excludeDirs += file("$buildDir/test-results")
+        excludeDirs += file("$buildDir/tmp")
+        excludeDirs += file("$buildDir/matrix")
+        excludeDirs += file("$buildDir/resources")
+        downloadSources = true
+    }
+    project {
+        jdkName = JavaVersion.VERSION_1_8
+        languageLevel = JavaVersion.VERSION_1_8
+        vcs = 'Git'
+    }
+    module {
+    }
+}
+
+/*task wrapper(type: Wrapper) {
+    gradleVersion = expectedGradleVersion
+}*/
+
+task "createDirs" << {
+    sourceSets*.scala.srcDirs*.each { it.mkdirs() }
+    sourceSets*.resources.srcDirs*.each { it.mkdirs() }
+}
+
+jar {
+    zip64 true
+    manifest {
+        attributes "Main-Class": "com.ucas.cxq.app.LRApp"
+    }
+
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    } {
+        exclude "META-INF/*.SF"
+        exclude "META-INF/*.DSA"
+        exclude "META-INF/*.RSA"
+    }
+}
+
+tasks.withType(ScalaCompile) {
+    //scalaCompileOptions.fork = true
+    //scalaCompileOptions.setUseAnt(false)
+
+    scalaCompileOptions.with {
+        force = true
+    }
+}
