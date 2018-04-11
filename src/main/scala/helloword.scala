@@ -9,9 +9,23 @@ object helloword {
     a.update(0, Array("Runoob", "Baidu", "Google"))
     a.update(1, Array("A", "B", "C"))
     a.update(2, Array("D", "E", "F"))
-    for (s <- a(0))
+    for (s <- a(0)) {
       println(s)
+    }
     println(a(0))
+
+    val x = "32021132,85394549,1521957253,241,se43fa200bb56&-36,"
+    val y = x.split(",", 6)
+    for (yy <- y) {
+      println(yy)
+    }
+    println(y.length)
+
+    val z = y.map(f => ("x", f))
+    for (i <- 0 to (z.length - 1)) {
+      println(i + ":" + z(i)._1 + "\t" + z(i)._2)
+    }
+
   }
 
 }
