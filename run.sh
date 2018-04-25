@@ -8,6 +8,7 @@ JAR_PATH=./build/libs/lucene_baike-1.0.jar
 #java -classpath ${jar_path} ${class_name} ${param}
 #
 #scala -classpath ${jar_path} helloword
+#jar -tf spark_project-1.0.jar | grep EsCon
 
 inpuDataPath=tempData
 outputPath=output
