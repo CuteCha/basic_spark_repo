@@ -10,6 +10,7 @@ import java.net.InetAddress;
 
 /**
  * Created by cxq on 2018/4/23.
+ * connect es5.5.2
  */
 public class EsCon {
     private static String host = "10.231.55.250";
