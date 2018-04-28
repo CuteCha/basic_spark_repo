@@ -2,7 +2,7 @@
 
 SparkBin=/Users/cxq/spark-1.6.3-bin-hadoop2.6/bin
 JAR_PATH=./build/libs/lucene_baike-1.0.jar
-#jar_path=./build/libs/lucene_baike-1.0.jar
+#jar_path=./build/libs/spark_project-1.0.jar
 #class_name=HelloWorld
 #param="-----------------------php"
 #java -classpath ${jar_path} ${class_name} ${param}
@@ -18,7 +18,7 @@ rm -rf ${outputPath}
 
 ${SparkBin}/spark-submit \
   --master local[*] \
-  --class genTrainData \
+  --class helloword \
   --driver-memory 1G \
   --executor-memory 1G \
   --executor-cores 2 \
