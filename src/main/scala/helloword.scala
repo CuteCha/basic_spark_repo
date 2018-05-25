@@ -26,6 +26,18 @@ object helloword {
       println(i + ":" + z(i)._1 + "\t" + z(i)._2)
     }
 
+    val sites = Map("runoob" -> "www.runoob.com", "google" -> "www.google.com")
+    println(sites.get("runoob"))
+    println(show(sites.get("runoob")))
+    println(sites.get("r"))
+    println(show(sites.get("r")))
+
+
+  }
+
+  def show(x: Option[String]) = x match {
+    case Some(s) => s
+    case None => "?"
   }
 
 }
