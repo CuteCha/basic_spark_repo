@@ -74,6 +74,7 @@ dependencies {
     compile(libs.lucene_core)
     compile(libs.lucene_queryparser)
     compile(libs.lucene_analyzers_common)
+    compile(libs.tensorflow)
 //    compile(libs.json_lib)
 
     compile(libs.redisClient)
