@@ -18,7 +18,8 @@ public class LoadTfModel {
         final int NUM_PREDICTIONS = 1;
 
         /* load the model Bundle */
-        SavedModelBundle b = SavedModelBundle.load("/Users/cxq/mi/tmp/model", "serve");
+        String modelDir="./output/tmp/model";
+        SavedModelBundle b = SavedModelBundle.load(modelDir, "serve");
 
         // create the session from the Bundle
         Session sess = b.session();
