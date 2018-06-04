@@ -8,7 +8,7 @@ apply plugin: 'java'
 apply from: "./dependencies.gradle"
 apply plugin: "idea"
 
-sourceCompatibility = 1.7
+sourceCompatibility = 1.8
 
 defaultTasks 'build'
 
