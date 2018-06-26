@@ -86,6 +86,7 @@ dependencies {
     compile(libs.slf4jLog4j)
     compile(libs.log4j)
     compile(libs.gson)
+    compile(libs.fastjson)
     compile(libs.sparkStreamingKafka)
     compile(libs.kafka)
     compile(libs.typesafeConfig)

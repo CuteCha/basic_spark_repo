@@ -16,6 +16,7 @@ libs += [
         hadoopClient: "org.apache.hadoop:hadoop-client:2.0.0-cdh4.6.0",
         jCommander: "com.beust:jcommander:1.30",*/
         gson: "com.google.code.gson:gson:2.3.1",
+        fastjson:'com.alibaba:fastjson:1.2.39',
         jodaTime: "joda-time:joda-time:2.3",
         jodaConvert: "org.joda:joda-convert:1.8.1",
         kafkaTest: "org.apache.kafka:kafka_2.10:0.8.2.1:test",
