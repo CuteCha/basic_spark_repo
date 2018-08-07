@@ -32,7 +32,28 @@ object helloword {
     println(sites.get("r"))
     println(show(sites.get("r")))
 
+    testFlatMap()
+    testMap()
 
+
+  }
+
+  def testFlatMap(): Unit ={
+    val li = List(1,2,3)
+    val res = li.flatMap(x => x match {
+      case 3 => List('a','b')
+      case _ => List(x*2)
+    })
+    println(res)
+  }
+
+  def testMap(): Unit = {
+    val li = List(1,2,3)
+    val res = li.map(x => x match {
+      case 3 => List('a','b')
+      case _ => x*2
+    })
+    println(res)
   }
 
   def show(x: Option[String]) = x match {
