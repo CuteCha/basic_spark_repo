@@ -89,6 +89,39 @@ public class LoadModelDevideEmb {
             System.out.println(ps[0][i] + "\t" + pe[0][i]);
         }
 
+        long st_ = System.currentTimeMillis();
+        List<Tensor<?>> res_ = sess.runner()
+                .feed("query", q_idx)
+                .feed("passage", p_idx)
+                .feed("c_emb", p_emb)
+                .feed("q_emb", q_emb)
+                .fetch("predict/start_position")
+                .fetch("predict/end_position")
+                .fetch("pointer/start_prob")
+                .fetch("pointer/end_prob")
+                .run();
+
+        Tensor p1_ = res_.get(0);
+        Tensor p2_ = res_.get(1);
+        Tensor prob1_ = res_.get(2);
+        Tensor prob2_ = res_.get(3);
+
+        long[] s_ = new long[1];
+        p1_.copyTo(s_);
+        long[] e_ = new long[1];
+        p2_.copyTo(e_);
+        float[][] ps_ = new float[1][15];
+        prob1_.copyTo(ps_);
+        float[][] pe_ = new float[1][15];
+        prob2_.copyTo(pe_);
+        long et_ = System.currentTimeMillis();
+        System.out.println("cost: " + (et_ - st_) + " ms");
+        System.out.println(s_[0]);
+        System.out.println(e_[0]);
+        for (Integer i = 0; i < ps_[0].length; i++) {
+            System.out.println(ps_[0][i] + "\t" + pe_[0][i]);
+        }
+
         q_emb.close();
         q_idx.close();
         p_emb.close();
