@@ -5,6 +5,7 @@ import java.util.concurrent.CyclicBarrier;
 
 /**
  * Created by cxq on 2018/6/3.
+ * 斗地主人在桌子上等待，够3个了就开始游戏
  */
 public class CyclicBarrierDemo {
     public static void main(String [] args){

@@ -4,6 +4,7 @@ import java.util.concurrent.Phaser;
 
 /**
  * Created by cxq on 2018/6/3.
+ * 餐厅订单处理流程
  */
 public class PhaserDemo {
     public static void main(String [] args){

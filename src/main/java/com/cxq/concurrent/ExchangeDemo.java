@@ -4,6 +4,7 @@ import java.util.concurrent.Exchanger;
 
 /**
  * Created by cxq on 2018/6/3.
+ * 线程间交换数据
  */
 public class ExchangeDemo {
     public static void main(String [] args){

@@ -4,6 +4,7 @@ import java.util.concurrent.CountDownLatch;
 
 /**
  * Created by cxq on 2018/6/3.
+ * 赛跑运动员准备好了后，数321所有人开始起跑
  */
 public class countDownLatchDemo {
     public static void main(String[] args) {

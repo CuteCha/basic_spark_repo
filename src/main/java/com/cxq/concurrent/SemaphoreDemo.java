@@ -4,6 +4,7 @@ import java.util.concurrent.Semaphore;
 
 /**
  * Created by cxq on 2018/6/3.
+ * 银行柜台有2个服务员，有3个人排队等待服务
  */
 public class SemaphoreDemo {
     public static void main(String [] args){
