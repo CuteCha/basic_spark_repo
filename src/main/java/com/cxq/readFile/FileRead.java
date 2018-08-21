@@ -39,8 +39,8 @@ public class FileRead {
      * @param afile      想要读取的文件路径
      * @param threadSize 想要开启线程的条数
      */
-    private FileRead(String afile, int threadSize) {
-        this.file = new File(afile);
+    private FileRead(String fileName, int threadSize) {
+        this.file = new File(fileName);
         this.fileLength = file.length();
         this.threadSize = threadSize;
         this.cancel = threadSize;

@@ -7,18 +7,19 @@ import java.util.concurrent.Phaser;
  * 餐厅订单处理流程
  */
 public class PhaserDemo {
-    public static void main(String [] args){
+    public static void main(String[] args) {
+        int orderNum = 5;
         Phaser phaser = new Phaser(1);
 
         System.out.println("start ......");
 
-        new PhaserDemoWorker(phaser,"waiter").start();
-        new PhaserDemoWorker(phaser,"cooker").start();
-        new PhaserDemoWorker(phaser,"busboy").start();
+        new PhaserDemoWorker(phaser, "waiter", orderNum).start();
+        new PhaserDemoWorker(phaser, "cooker", orderNum).start();
+        new PhaserDemoWorker(phaser, "busboy", orderNum).start();
 
-        for(int i=1;i<=3;i++){
+        for (int i = 1; i <= orderNum; i++) {
             phaser.arriveAndAwaitAdvance();
-            System.out.println("order " +i+" is finished.");
+            System.out.println("order " + i + " is finished.");
         }
 
         phaser.arriveAndDeregister();
@@ -26,19 +27,23 @@ public class PhaserDemo {
     }
 }
 
-class PhaserDemoWorker extends Thread{
+class PhaserDemoWorker extends Thread {
     private Phaser phaser;
-    public PhaserDemoWorker(Phaser phaser, String name){
-        this.phaser=phaser;
+    private int num;
+
+    public PhaserDemoWorker(Phaser phaser, String name, int num) {
+        this.phaser = phaser;
         setName(name);
+        this.num = num;
         phaser.register();
     }
-    public void run(){
-        for (int i=1;i<=3;i++){
-            System.out.println("current order is "+i+" : "+getName());
-            if(i==3){
+
+    public void run() {
+        for (int i = 1; i <= num; i++) {
+            System.out.println("current order is " + i + " : " + getName());
+            if (i == 3) {
                 phaser.arriveAndDeregister();
-            }else {
+            } else {
                 phaser.arriveAndAwaitAdvance();
             }
             try {
