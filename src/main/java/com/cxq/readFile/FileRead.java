@@ -29,14 +29,16 @@ public class FileRead {
 
 
     public static void main(String[] args) {
-        new FileRead("./output/tmp/data_00.txt", 4).start();
+        String fileName = "./output/tmp/data_00.txt";
+//        String fileName = "/Users/cxq/PycharmProjects/test/work/multithreads/data.txt";
+        new FileRead(fileName, 4).start();
     }
 
 
     /**
      * 构造函数
      *
-     * @param afile      想要读取的文件路径
+     * @param fileName      想要读取的文件路径
      * @param threadSize 想要开启线程的条数
      */
     private FileRead(String fileName, int threadSize) {
@@ -75,7 +77,7 @@ public class FileRead {
             return;
         }
 //       4.等待所有线程齐了再开始
-        cyclicBarrier = new CyclicBarrier(startEndPairs.size());
+//        cyclicBarrier = new CyclicBarrier(startEndPairs.size());
 
 //       5. 遍历startEndPairs，根据记录下来的始末位置分配给各线程读取
 
