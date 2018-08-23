@@ -1,12 +1,8 @@
 package com.cxq.readFile;
 
-import com.sun.xml.internal.xsom.impl.scd.Iterators;
 
 import java.io.*;
-import java.nio.MappedByteBuffer;
-import java.nio.channels.FileChannel;
 import java.util.*;
-import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
