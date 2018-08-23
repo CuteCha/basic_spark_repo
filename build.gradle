@@ -85,6 +85,8 @@ dependencies {
     compile(libs.jodaConvert)
     compile(libs.slf4jLog4j)
     compile(libs.log4j)
+    compile(libs.slf4jApi)
+    compile(libs.lombok)
     compile(libs.gson)
     compile(libs.fastjson)
     compile(libs.sparkStreamingKafka)
