@@ -25,6 +25,22 @@ public class SyncDemo {
         System.out.println(StringUtils.repeat("-", 36));
     }
 
+    public void syncTest3(String name) {
+        synchronized (SyncDemo.class) {
+            for (int i = 0; i < 10; i++) {
+                System.out.println("test3- " + name + "\t" + i);
+            }
+            System.out.println(StringUtils.repeat("-", 36));
+        }
+    }
+    public static synchronized void syncTest4(String name) {
+        for (int i = 0; i < 10; i++) {
+            System.out.println("test4- " + name + "\t" + i);
+        }
+        System.out.println(StringUtils.repeat("-", 36));
+    }
+
+
     private static void test1(){
         SyncDemo syncDemo = new SyncDemo();
         ExecutorService executorService = Executors.newCachedThreadPool();
@@ -36,6 +52,7 @@ public class SyncDemo {
         }
         executorService.shutdown();
     }
+
     private static void test2(){
         SyncDemo syncDemo1=new SyncDemo();
         SyncDemo syncDemo2=new SyncDemo();
@@ -48,7 +65,33 @@ public class SyncDemo {
         });
         executorService.shutdown();
     }
+
+    public static void test3(){
+        SyncDemo syncDemo = new SyncDemo();
+        ExecutorService executorService = Executors.newCachedThreadPool();
+        for (int i = 0; i < 2; i++) {
+            executorService.execute(() -> {
+                syncDemo.syncTest3("A");
+//                syncDemo.syncTest2("A");
+            });
+        }
+        executorService.shutdown();
+    }
+
+    public static void test4(){
+        SyncDemo syncDemo1=new SyncDemo();
+        SyncDemo syncDemo2=new SyncDemo();
+        ExecutorService executorService=Executors.newCachedThreadPool();
+        executorService.execute(()->{
+            syncDemo1.syncTest4("A");
+        });
+        executorService.execute(()->{
+            syncDemo2.syncTest4("B");
+        });
+        executorService.shutdown();
+    }
+
     public static void main(String[] args) {
-        test2();
+        test4();
     }
 }
