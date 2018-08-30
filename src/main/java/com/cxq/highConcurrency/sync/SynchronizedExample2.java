@@ -1,7 +1,6 @@
 package com.cxq.highConcurrency.sync;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.log4j.PropertyConfigurator;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
