@@ -51,5 +51,7 @@ libs += [
         lucene_core: "org.apache.lucene:lucene-core:6.5.0",
         lucene_queryparser: "org.apache.lucene:lucene-queryparser:6.5.0",
         lucene_analyzers_common: "org.apache.lucene:lucene-analyzers-common:6.5.0",
-        tensorflow: "org.tensorflow:tensorflow:1.4.0"
+        tensorflow: "org.tensorflow:tensorflow:1.4.0",
+        dl4j: "org.deeplearning4j:deeplearning4j-core:0.9.1",
+        nd4j_native: "org.nd4j:nd4j-native-platform:0.9.1"
 ]

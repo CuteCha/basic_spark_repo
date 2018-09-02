@@ -17,19 +17,19 @@ buildscript {
 //        mavenCentral()
 //        mavenLocal()
 //        jcenter()
-        maven { url 'https://plugins.gradle.org/m2/' }
         maven { url 'http://maven.aliyun.com/nexus/content/repositories/google' }
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
         maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter'}
+        maven { url 'https://plugins.gradle.org/m2/' }
     }
 }
 
 allprojects {
     repositories {
-        maven { url 'https://plugins.gradle.org/m2/' }
         maven { url 'http://maven.aliyun.com/nexus/content/repositories/google' }
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
         maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter'}
+        maven { url 'https://plugins.gradle.org/m2/' }
     }
 }
 
@@ -75,6 +75,8 @@ dependencies {
     compile(libs.lucene_queryparser)
     compile(libs.lucene_analyzers_common)
     compile(libs.tensorflow)
+    compile(libs.nd4j_native)
+    compile(libs.dl4j)
 //    compile(libs.json_lib)
 
     compile(libs.redisClient)

@@ -3,20 +3,24 @@ package com.cxq.readFile;
 
 import java.io.*;
 import java.util.*;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Semaphore;
 
 /**
  * Created by cxq on 2018/8/21.
  */
 public class ReadSum {
-    private RandomAccessFile randomAccessFile;
-    private int threadNum;
-    private long fileSize;
-    private long blockNum;
-    private ExecutorService executorService;
-    private Set<BlockInterval> stPairs;
-    private long sum = 0;
+    private static RandomAccessFile randomAccessFile;
+    private static int threadNum;
+    private static long fileSize;
+    private static long blockNum;
+    private static ExecutorService executorService;
+    private static Semaphore semaphore;
+    private static CountDownLatch countDownLatch;
+    private static Set<BlockInterval> stPairs;
+    private static long sum = 0;
 
 
     private ReadSum(String fileName, int threadNum) {
@@ -27,6 +31,8 @@ public class ReadSum {
             this.blockNum = fileSize / this.threadNum;
             this.stPairs = new HashSet<>();
             this.executorService = Executors.newFixedThreadPool(threadNum);
+            this.semaphore = new Semaphore(threadNum);
+            this.countDownLatch = new CountDownLatch(threadNum);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -40,14 +46,28 @@ public class ReadSum {
         System.out.println("stPairs.size: " + stPairs.size());
 
         for (BlockInterval stPos : stPairs) {
-            this.executorService.submit(new ReadSum.sumFun(stPos.startPos, stPos.endPos));
+//            this.executorService.submit(new ReadSum.sumFun(stPos.startPos, stPos.endPos));
+            this.executorService.execute(() -> {
+                try {
+                    semaphore.acquire();
+                    sumFunc(stPos.startPos, stPos.endPos);
+                    semaphore.release();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } finally {
+                    countDownLatch.countDown();
+                }
+            });
+
         }
 
         try {
             randomAccessFile.close();
-        } catch (IOException e) {
+            countDownLatch.await();
+        } catch (Exception e) {
             e.printStackTrace();
         }
+
         this.executorService.shutdown();
         long endTime = System.currentTimeMillis();
         System.out.println(String.format("cost time: %dms", endTime - startTime));
@@ -57,7 +77,7 @@ public class ReadSum {
     public void splitFile() {
         long s = 0;
         long t;
-        String line;
+        String line = null;
         for (int i = 1; i < threadNum; i++) {
             try {
                 randomAccessFile.seek(blockNum * i);
@@ -74,9 +94,32 @@ public class ReadSum {
         stPairs.add(new BlockInterval(s, fileSize));
     }
 
+    public synchronized static void sumFunc(long start, long end) {
+        long k;
+        long temp = 0;
+        String line = null;
+        k = start;
+
+        try {
+            randomAccessFile.seek(start);
+            while (k < end) {
+                line = randomAccessFile.readLine();
+                String[] lineArr = line.split("\t");
+                for (int i = 0; i < lineArr.length; i++) {
+                    temp += Long.parseLong(lineArr[i]);
+                }
+//                temp += Arrays.stream(line.split("\t")).mapToLong(x -> Long.parseLong(x)).sum();
+                k = randomAccessFile.getFilePointer();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        sum += temp;
+    }
+
     public static void main(String[] args) throws Exception {
         String fileName = "/Users/cxq/PycharmProjects/test/work/multithreads/data.txt";
-        new ReadSum(fileName, 4).start();
+        new ReadSum(fileName, 1).start();
 //        someDebug();
 //        testSplitFile(fileName, 4);//0,780,1530,2280,3000
 //        testRead(fileName, 0, 780);
