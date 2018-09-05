@@ -7,6 +7,25 @@ import org.nd4j.linalg.factory.Nd4j
   * Created by cxq on 2018/8/31.
   */
 object MatrixOperation {
+  def testForLoop() {
+    val startTime = System.currentTimeMillis()
+    var s = 0
+    //    for (i <- 1 to 10000) {
+    //      s += i
+    //    }
+    var i = 0
+    while (i <= 1000000) {
+      s += i
+      i += 1
+    }
+    val endTime = System.currentTimeMillis()
+    println("-" * 36)
+    println(s)
+    println(endTime - startTime)
+  }
+
+
+
   def main(args: Array[String]) {
     //    PropertyConfigurator.configure("./conf/log4j.properties")
     val arr = Nd4j.create(4)
@@ -21,8 +40,8 @@ object MatrixOperation {
     println(vec.muli(vec))
     val vec0 = Nd4j.zeros(10)
     println(vec0)
-    val a=Nd4j.create(Array(Array(1d,2d, 3d), Array(4d, 5d, 6d)))
-    val b=Nd4j.create(Array(Array(10d,20d), Array(30d, 40d), Array(50d, 60d)))
+    val a = Nd4j.create(Array(Array(1d, 2d, 3d), Array(4d, 5d, 6d)))
+    val b = Nd4j.create(Array(Array(10d, 20d), Array(30d, 40d), Array(50d, 60d)))
     println(a.mmul(b))
   }
 
