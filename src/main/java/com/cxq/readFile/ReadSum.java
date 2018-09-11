@@ -19,7 +19,7 @@ public class ReadSum {
     private static ExecutorService executorService;
     private static Semaphore semaphore;
     private static CountDownLatch countDownLatch;
-    private static Set<BlockInterval> stPairs;
+    private static Set<StartEndPos> stPairs;
     private static long sum = 0;
 
 
@@ -45,7 +45,7 @@ public class ReadSum {
         splitFile();
         System.out.println("stPairs.size: " + stPairs.size());
 
-        for (BlockInterval stPos : stPairs) {
+        for (StartEndPos stPos : stPairs) {
 //            this.executorService.submit(new ReadSum.sumFun(stPos.startPos, stPos.endPos));
             this.executorService.execute(() -> {
                 try {
@@ -62,8 +62,8 @@ public class ReadSum {
         }
 
         try {
-            randomAccessFile.close();
             countDownLatch.await();
+            randomAccessFile.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -83,18 +83,18 @@ public class ReadSum {
                 randomAccessFile.seek(blockNum * i);
                 line = randomAccessFile.readLine();
                 t = randomAccessFile.getFilePointer();
-                BlockInterval bi = new BlockInterval(s, t);
+                StartEndPos st = new StartEndPos(s, t);
                 s = t;
-                stPairs.add(bi);
+                stPairs.add(st);
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
         }
-        stPairs.add(new BlockInterval(s, fileSize));
+        stPairs.add(new StartEndPos(s, fileSize));
     }
 
-    public synchronized static void sumFunc(long start, long end) {
+    public static synchronized void sumFunc(long start, long end) {
         long k;
         long temp = 0;
         String line = null;
@@ -105,8 +105,8 @@ public class ReadSum {
             while (k < end) {
                 line = randomAccessFile.readLine();
                 String[] lineArr = line.split("\t");
-                for (int i = 0; i < lineArr.length; i++) {
-                    temp += Long.parseLong(lineArr[i]);
+                for (String each : lineArr) {
+                    temp += Long.parseLong(each);
                 }
 //                temp += Arrays.stream(line.split("\t")).mapToLong(x -> Long.parseLong(x)).sum();
                 k = randomAccessFile.getFilePointer();
@@ -225,11 +225,11 @@ public class ReadSum {
     }
 
 
-    class BlockInterval {
+    class StartEndPos {
         long startPos;
         long endPos;
 
-        private BlockInterval(long startPos, long endPos) {
+        private StartEndPos(long startPos, long endPos) {
             this.startPos = startPos;
             this.endPos = endPos;
         }
