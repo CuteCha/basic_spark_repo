@@ -77,6 +77,7 @@ dependencies {
     compile(libs.tensorflow)
     compile(libs.nd4j_native)
     compile(libs.dl4j)
+    compile(libs.jfree)
 //    compile(libs.json_lib)
 
     compile(libs.redisClient)
