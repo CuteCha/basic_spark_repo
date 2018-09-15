@@ -50,4 +50,14 @@ public class SingletonAnno {
         return singletonAnno;
     }
 
+    public void showMessage(int i) {
+        System.out.println("Hello World " + i);
+    }
+
+    private static int count=0;
+    public void add(int i){
+        count++;
+        System.out.println("i="+i+"\t"+"count="+count);
+    }
+
 }
