@@ -21,6 +21,7 @@ public class SingletonAnno {
     /*
     * 定义全局的变量用来判断是否实例化过
     * 因为静态方法不能调用非静态变量，所以需要把变了设置成static
+    * 因为对象是static，所以需要设置成private。如果是public，则直接可以调用该对象，不执行访问入口
     * */
     private static SingletonAnno singletonAnno;
 

@@ -18,6 +18,35 @@ public class SingletonTest {
         SingletonEager singletonEager2 = SingletonEager.getInstance();
         System.out.println(singletonEager1==singletonEager2);
         System.out.println(singletonEager1.equals(singletonEager2));
+
+        System.out.println(StringUtils.repeat("-",36));
+        ExecutorService executorService = Executors.newCachedThreadPool();
+        Semaphore semaphore = new Semaphore(3);
+        for (int i=1; i<10;i++){
+            final int threadNum=i;
+            if(i%2==1) {
+                executorService.execute(() -> {
+                    try {
+                        semaphore.acquire();
+                        singletonEager1.add(threadNum);
+                        semaphore.release();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                });
+            }else {
+                executorService.execute(() -> {
+                    try {
+                        semaphore.acquire();
+                        singletonEager2.add(threadNum);
+                        semaphore.release();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                });
+            }
+        }
+        executorService.shutdown();
     }
 
     @Test
