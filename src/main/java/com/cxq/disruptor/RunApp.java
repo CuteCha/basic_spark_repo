@@ -1,0 +1,44 @@
+package com.cxq.disruptor;
+
+import com.lmax.disruptor.BlockingWaitStrategy;
+import com.lmax.disruptor.RingBuffer;
+import com.lmax.disruptor.dsl.Disruptor;
+import com.lmax.disruptor.dsl.ProducerType;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+/**
+ * Created by cxq on 2018/9/16.
+ */
+public class RunApp {
+    public static void main(String[] args) {
+        String fileName = "/Users/cxq/PycharmProjects/test/work/multithreads/data.txt";
+        Factory factory= new Factory();  // 工厂
+        ExecutorService executor = Executors.newCachedThreadPool(); // 线程池
+        int BUFFER_SIZE = 16;   // 必须为2的幂指数
+
+        // 初始化Disruptor
+        Disruptor<Event> disruptor = new Disruptor<>(factory,
+                BUFFER_SIZE,
+                executor,
+                ProducerType.MULTI,         // Create a RingBuffer supporting multiple event publishers to the one RingBuffer
+                new BlockingWaitStrategy()  // 默认阻塞策略
+        );
+
+        // 启动消费者
+        disruptor.handleEventsWithWorkerPool(new Consumer(),
+                new Consumer()
+        );
+        disruptor.start();
+        // 启动生产者
+        RingBuffer<Event> ringBuffer = disruptor.getRingBuffer();
+        Producer producer = new Producer(ringBuffer);
+        producer.read(fileName);
+
+        // 关闭
+        disruptor.shutdown();
+        executor.shutdown();
+
+    }
+}
