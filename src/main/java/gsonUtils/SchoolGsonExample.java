@@ -1,5 +1,9 @@
 package gsonUtils;
 
+import com.google.common.base.Strings;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -8,27 +12,22 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.google.common.base.Strings;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 /**
  * Created by cxq on 2018/9/29.
  */
 
 
-public class EmployeeGsonExample {
+public class SchoolGsonExample {
 
     private static Gson gsonCom=new GsonBuilder().setPrettyPrinting().create();
 
     public static void main(String[] args) throws IOException {
-        parseJsonFile("./data/employee.json");
+        parseJsonFile("./data/school.json");
         System.out.println("\n\n>>>>>>\n\n");
-        parseJsonLineFile("./data/employee.txt");
+        parseJsonLineFile("./data/school.txt");
     }
 
     public static void parseJsonFile(String filePath) throws IOException {
-        Employee emp = createEmployee();
 
         // Get Gson object
         // Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -40,14 +39,11 @@ public class EmployeeGsonExample {
         System.out.println(Strings.repeat("-", 36));
 
         // parse json string to object
-        Employee emp1 = gsonCom.fromJson(fileData, Employee.class);
+        School school = gsonCom.fromJson(fileData, School.class);
 
         // print object data
-        System.out.println("\n\nEmployee Object:\n\n" + emp1 + "\n\n");
+        System.out.println("\n\nEmployee Object:\n\n" + school);
 
-        // create JSON String from Object
-        String jsonEmp = gsonCom.toJson(emp);
-        System.out.print(jsonEmp);
     }
 
     public static void parseJsonLineFile(String filePath) {
@@ -61,9 +57,9 @@ public class EmployeeGsonExample {
                     System.out.println(Strings.repeat("=", 36));
                     System.out.println(lineContent);
                     System.out.println(Strings.repeat("^", 16));
-                    Employee employee = parseEmployee(lineContent);
-                    System.out.println(employee);
-                    System.out.println(employee.getId()+"\t"+employee.getName());
+                    School school = parseSchool(lineContent);
+                    System.out.println(school);
+                    System.out.println(school.getId()+"\t"+school.getName());
                     System.out.println(Strings.repeat("=", 36));
                 }
                 br.close();
@@ -79,38 +75,9 @@ public class EmployeeGsonExample {
     }
 
 
-    public static Employee parseEmployee(String employeeStr) {
-        // Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        // Employee emp = gson.fromJson(employeeStr, Employee.class);
-        Employee emp = gsonCom.fromJson(employeeStr, Employee.class);
-        return emp;
+    public static School parseSchool(String schoolStr) {
+        School school = gsonCom.fromJson(schoolStr, School.class);
+        return school;
     }
 
-    public static Employee createEmployee() {
-
-        Employee emp = new Employee();
-        emp.setId(101);
-        emp.setName("David");
-        emp.setPermanent(false);
-        emp.setPhoneNumbers(new long[]{123456, 987654});
-        emp.setRole("Manager");
-
-        Address add = new Address();
-        add.setCity("Bangalore");
-        add.setStreet("BTM 1st Stage");
-        add.setZipcode(560100);
-        emp.setAddress(add);
-
-        List<String> cities = new ArrayList<String>();
-        cities.add("Los Angeles");
-        cities.add("New York");
-        emp.setCities(cities);
-
-        Map<String, String> props = new HashMap<String, String>();
-        props.put("salary", "1000 Rs");
-        props.put("age", "28 years");
-        emp.setProperties(props);
-
-        return emp;
-    }
 }

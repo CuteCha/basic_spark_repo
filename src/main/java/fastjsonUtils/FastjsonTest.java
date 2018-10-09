@@ -1,6 +1,8 @@
 package fastjsonUtils;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.google.common.base.Strings;
 import org.apache.commons.io.IOUtils;
 
 import java.io.*;
@@ -11,11 +13,14 @@ import java.util.Map;
  */
 public class FastjsonTest {
     public static void main(String[] args) {
-        test1();
-        test2("./data/word_cut_dict/word2idx.json");
-        readFile1("./data/some.conf");
-        readFile2("./data/some.conf");
-        writeFile1("./data/some.conf", "./data/some.conf.bak");
+//        test1();
+//        test2("./data/word_cut_dict/word2idx.json");
+//        readFile1("./data/some.conf");
+//        readFile2("./data/some.conf");
+//        writeFile1("./data/some.conf", "./data/some.conf.bak");
+        test3("./data/some.conf");
+        System.out.println(Strings.repeat("-",36));
+//        test3("./data/some.json");
     }
 
     public static void test1() {
@@ -39,6 +44,22 @@ public class FastjsonTest {
             e.printStackTrace();
         }
 
+    }
+
+    public static void test3(String filaPath){
+        InputStream inputStream=null;
+        try {
+            inputStream = new FileInputStream(filaPath);
+            String text = IOUtils.toString(inputStream, "utf8");
+            System.out.println(text);
+            JSONObject object = JSON.parseObject(text);
+            System.out.println(object);
+            System.out.println(object.get("QRratio"));
+            JSONObject QRratio = JSON.parseObject(object.get("QRratio").toString());
+            System.out.println(QRratio.get("x"));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public static void readFile1(String filePath){

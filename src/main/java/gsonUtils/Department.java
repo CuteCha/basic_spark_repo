@@ -5,39 +5,30 @@ package gsonUtils;
  */
 
 
-public class Address {
+public class Department {
 
-    private String street;
-    private String city;
-    private int zipcode;
+    private String name;
+    private int studentNum;
 
-    public String getStreet() {
-        return street;
+    public String getName() {
+        return name;
     }
 
-    public void setStreet(String street) {
-        this.street = street;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getCity() {
-        return city;
+    public int getStudentNum() {
+        return studentNum;
     }
 
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public int getZipcode() {
-        return zipcode;
-    }
-
-    public void setZipcode(int zipcode) {
-        this.zipcode = zipcode;
+    public void setStudentNum(int studentNum) {
+        this.studentNum = studentNum;
     }
 
     @Override
     public String toString() {
-        return getStreet() + ", " + getCity() + ", " + getZipcode();
+        return "name="+getName() +  "|studentNum=" + getStudentNum();
     }
 
 }

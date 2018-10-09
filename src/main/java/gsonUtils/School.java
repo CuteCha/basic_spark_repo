@@ -1,17 +1,17 @@
 package gsonUtils;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-
-import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by cxq on 2018/9/29.
  */
 
 
-public class Employee {
+public class School {
 
     @SerializedName("empID")
     private int id;
@@ -22,6 +22,7 @@ public class Employee {
     private String role;
     private List<String> cities;
     private Map<String, String> properties;
+    private List<Department> department;
 
     public int getId() {
         return id;
@@ -71,6 +72,14 @@ public class Employee {
         this.role = role;
     }
 
+    public List<Department> getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(List<Department> department) {
+        this.department = department;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -83,6 +92,7 @@ public class Employee {
         sb.append("Address=" + getAddress() + "\n");
         sb.append("Cities=" + Arrays.toString(getCities().toArray()) + "\n");
         sb.append("Properties=" + getProperties() + "\n");
+        sb.append("department="+Arrays.toString(getDepartment().toArray())+"\n");
         sb.append("*****************************");
 
         return sb.toString();

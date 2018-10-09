@@ -27,9 +27,9 @@ public class RunApp {
         );
 
         // 启动消费者
-        disruptor.handleEventsWithWorkerPool(new Consumer(),
-                new Consumer()
-        );
+         disruptor.handleEventsWithWorkerPool(new Consumer(),new Consumer()); //非单例
+//        Consumer consumer = Consumer.getInstance();
+//        disruptor.handleEventsWithWorkerPool(consumer,consumer);
         disruptor.start();
         // 启动生产者
         RingBuffer<Event> ringBuffer = disruptor.getRingBuffer();
