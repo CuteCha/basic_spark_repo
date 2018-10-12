@@ -21,18 +21,18 @@ public class AppConsumer implements Runnable {
         String line;
         String[] arrStr;
         int ret;
-        int count=0;
+        int count = 0;
         try {
             while (!(line = blockingQueue.take()).equals(FINIDHED)) {
                 // 消费
                 count++;
-                line =line.trim();
-                if(StringUtils.isEmpty(line)){
+                line = line.trim();
+                if (StringUtils.isEmpty(line)) {
                     continue;
                 }
                 arrStr = line.split("\t");
                 ret = Integer.parseInt(arrStr[0]) + Integer.parseInt(arrStr[1]);
-                System.out.println(String.format("L%s:\t%s", count, ret));
+                System.out.println(String.format("L%3d:\t%s + %s = %s", count, arrStr[0], arrStr[1], ret));
             }
         } catch (Exception e) {
             e.printStackTrace();
