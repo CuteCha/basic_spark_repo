@@ -2,6 +2,7 @@ package com.cxq.disruptor;
 
 import com.lmax.disruptor.BlockingWaitStrategy;
 import com.lmax.disruptor.RingBuffer;
+import com.lmax.disruptor.YieldingWaitStrategy;
 import com.lmax.disruptor.dsl.Disruptor;
 import com.lmax.disruptor.dsl.ProducerType;
 
@@ -16,14 +17,15 @@ public class RunApp {
         String fileName = "/Users/cxq/PycharmProjects/test/work/multithreads/data.txt";
         Factory factory= new Factory();  // 工厂
         ExecutorService executor = Executors.newCachedThreadPool(); // 线程池
-        int BUFFER_SIZE = 16;   // 必须为2的幂指数
+        int ringBufferSize = 16;   // 必须为2的幂指数
 
         // 初始化Disruptor
-        Disruptor<Event> disruptor = new Disruptor<>(factory,
-                BUFFER_SIZE,
+        Disruptor<Event> disruptor = new Disruptor<Event>(
+                factory,
+                ringBufferSize,
                 executor,
                 ProducerType.MULTI,         // Create a RingBuffer supporting multiple event publishers to the one RingBuffer
-                new BlockingWaitStrategy()  // 默认阻塞策略
+                new YieldingWaitStrategy()  // 默认阻塞策略
         );
 
         // 启动消费者
