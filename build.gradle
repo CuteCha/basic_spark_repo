@@ -107,7 +107,7 @@ dependencies {
 idea {
     module {
         jdkName = JavaVersion.VERSION_1_8
-        name = "spark_project"
+        name = "basic_spark_repo"
         excludeDirs = [file(".gradle")]
         excludeDirs += file("$buildDir/classes")
         excludeDirs += file("$buildDir/bundles")
