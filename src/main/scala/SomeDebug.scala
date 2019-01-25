@@ -1,4 +1,5 @@
 import com.scala.cxq.common.ParamParse
+import com.scala.cxq.utils.CustomIterator
 import org.apache.spark.{SparkConf, SparkContext}
 
 /**
@@ -19,11 +20,12 @@ object SomeDebug {
     //    val result = input.mapPartitions(partition => Iterator(sumOfEveryPartition(partition)))
     //    result.repartition(1).saveAsTextFile(outputPath)
 
-    val input = sc.parallelize(1 to 9, 3)
+    val input = sc.parallelize(1 to 20, 3)
     //    val mapResult = input.map(x => (x, x * 2))
     //    mapResult.repartition(1).saveAsTextFile(outputPath)
 
-    val result = input.mapPartitions(partion => partion.map(x => (x, x * 2)))
+    //    val result = input.mapPartitions(partion => partion.map(x => (x, x * 2)))
+    val result = input.mapPartitions(v => new CustomIterator(v))
     result.repartition(1).saveAsTextFile(outputPath)
 
     sc.stop()
