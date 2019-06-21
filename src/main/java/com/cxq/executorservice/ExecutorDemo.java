@@ -14,8 +14,10 @@ import java.util.concurrent.TimeUnit;
  * Created by cxq on 2018/8/23.
  */
 
-@Slf4j
+//@Slf4j
 public class ExecutorDemo {
+    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(ExecutorDemo.class);
+
     @Test
     public void newCachedThreadPoolDemo() throws Exception{
         ExecutorService pool = Executors.newCachedThreadPool();

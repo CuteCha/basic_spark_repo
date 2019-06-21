@@ -96,6 +96,7 @@ dependencies {
     compile(libs.sparkStreamingKafka)
     compile(libs.kafka)
     compile(libs.typesafeConfig)
+    compile("junit:junit:4.12")
     compile(libs.json4sJackson)  {
         exclude group: 'org.scala-lang', module: 'scala-compiler'
         exclude group: 'org.scala-lang', module: 'scala-reflect'

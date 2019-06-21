@@ -10,8 +10,9 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by cxq on 2018/9/3.
  */
-@Slf4j
+//@Slf4j
 public class SemaphoreExa1 {
+    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(SemaphoreExa1.class);
     private final static int threadCount = 20;
 
     private static void test1() {

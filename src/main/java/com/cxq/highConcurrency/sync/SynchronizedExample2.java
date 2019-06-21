@@ -8,8 +8,9 @@ import java.util.concurrent.Executors;
 /**
  * Created by cxq on 2018/8/28.
  */
-@Slf4j
+//@Slf4j
 public class SynchronizedExample2 {
+    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(SynchronizedExample2.class);
     // 修饰一个类
     public static void test1(int j) {
         synchronized (SynchronizedExample2.class) {
