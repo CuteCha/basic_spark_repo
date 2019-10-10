@@ -13,9 +13,10 @@ import java.net.InetSocketAddress;
  */
 public class SimpleServer {
     public static void main(String[] arg) throws Exception {
-        HttpServer server = HttpServer.create(new InetSocketAddress(8001), 0);
+        HttpServer server = HttpServer.create(new InetSocketAddress(10001), 0);
         server.createContext("/test", new TestHandler());
         server.start();
+        System.out.println("running......");
     }
 
     static class TestHandler implements HttpHandler{
