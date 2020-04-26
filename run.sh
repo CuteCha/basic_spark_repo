@@ -46,3 +46,8 @@ ${SparkBin}/spark-submit \
 #    --output /user/s_qabot/crawler_data/baidu_zhidao/simQ_modify/20180320 \
 #    --debug_output  /user/s_qabot/crawler_data/baidu_zhidao/simQ_debug/20180320
 #    #--executor-cores 2 --num-executors 10 --conf spark.dynamicAllocation.enabled=false
+
+
+#cr_test
+#cr_test
+#cr_test
