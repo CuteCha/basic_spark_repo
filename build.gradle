@@ -66,6 +66,7 @@ dependencies {
     provided(libs.scala)
     provided(libs.scalaRef)
     compile(libs.spark)
+    compile(libs.sparkSql)
     compile(libs.elasticsearch)
     compile(libs.netty_all)
     //provided(libs.spark)

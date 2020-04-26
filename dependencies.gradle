@@ -32,6 +32,7 @@ libs += [
         lombok: "org.projectlombok:lombok:1.16.18",
         //scalaWebSockets: "eu.piotrbuda:scalawebsocket_2.10:0.1.1",
         spark: "org.apache.spark:spark-core_$versions.scala:$versions.spark",
+        sparkSql: "org.apache.spark:spark-sql_$versions.scala:$versions.spark",
         /*sparkGraphX: "org.apache.spark:spark-graphx_$versions.scala:$versions.spark",
         sparkMlLib: "org.apache.spark:spark-mllib_$versions.scala:$versions.spark",*/
         sparkStreaming: "org.apache.spark:spark-streaming_$versions.scala:$versions.spark",
