@@ -1,13 +1,14 @@
 import com.scala.cxq.common.ParamParse
 import com.scala.cxq.utils.CustomIterator
 import org.apache.spark.{SparkConf, SparkContext}
+import scala.collection.mutable.ListBuffer
 
 /**
-  * Created by cxq on 2018/10/17.
-  */
+ * Created by cxq on 2018/10/17.
+ */
 object SomeDebug {
   def main(args: Array[String]) {
-    testMapPartions(args)
+    app()
   }
 
   def testMapPartions(args: Array[String]): Unit = {
@@ -46,5 +47,56 @@ object SomeDebug {
     } finally {
       println("finish")
     }
+  }
+
+  def isContain(sess: List[(String, String)]): Boolean = {
+    val len = sess.length - 1
+    for (idx <- sess.indices) {
+      println(idx)
+      if (idx < len && sess(idx)._2.equals("0") && sess(idx + 1)._2.equals("1")) {
+        true
+      }
+    }
+
+    false
+  }
+
+  def isContain2(sess: List[(String, String)]): Boolean = {
+    val L = sess.length
+    val len = L - 1
+    var ret = false
+    var idx = 0
+    while (idx < len) {
+      println(idx)
+      if (idx < len && sess(idx)._2.equals("0") && sess(idx + 1)._2.equals("1")) {
+        ret = true
+        idx = L
+      }
+      idx = idx + 1
+    }
+
+    ret
+  }
+
+  def getPvSess(sess: List[(String, String)]): ListBuffer[(String, String)] = {
+    var ret = ListBuffer[(String, String)]()
+    val L = sess.length
+    val len = L - 1
+    var idx = 0
+    while (idx < len) {
+      println(idx)
+      if (idx < len && sess(idx)._2.equals("0") && sess(idx + 1)._2.equals("1")) {
+        ret += sess(idx)
+      }
+      idx = idx + 1
+    }
+
+    ret
+  }
+
+  def app(): Unit = {
+    val res = getPvSess(List(("a", "0"), ("b", "1"), ("c", "0")))
+    println(res)
+    println(res.toList)
   }
 }
