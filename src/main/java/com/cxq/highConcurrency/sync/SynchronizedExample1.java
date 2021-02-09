@@ -32,7 +32,7 @@ public class SynchronizedExample1 {
         SynchronizedExample1 example2 = new SynchronizedExample1();
         ExecutorService executorService = Executors.newCachedThreadPool();
         executorService.execute(() -> {
-            example1.test2(1);
+            example1.test1(1);
         });
         executorService.execute(() -> {
             example2.test2(2);
